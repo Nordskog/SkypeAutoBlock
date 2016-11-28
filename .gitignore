@@ -1,4 +1,12 @@
-bin/*
-gen/*
-obj/*
-bin/*
+/.gradle/*
+/bin/*
+/build/*
+/.settings/*
+/.gradle/*
+
+/module/build/*
+/module/bin/*
+/module/settings/*
+
+signing.gradle
+/.gradle/

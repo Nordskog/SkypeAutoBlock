@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="org.eclipse.buildship.core.gradleclasspathcontainer" kind="con"/>
+	<classpathentry path="bin" kind="output"/>
+	<classpathentry output="bin" path="src/main/java" kind="src"/>
+	<classpathentry output="bin" path="build/generated/source/r/debug" kind="src"/>
+	<classpathentry output="bin" path="build/generated/source/buildConfig/debug" kind="src"/>
+	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/" kind="con"/>
+	<classpathentry path="ANDROID_HOME/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar" kind="var" sourcepath="ANDROID_HOME/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0-sources.jar"/>
+	<classpathentry path="C:/Users/Roughy/androidWorkspace/SkypeAutoblock/module/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar" kind="lib" sourcepath="ANDROID_HOME/extras/android/m2repository/com/android/support/appcompat-v7/23.1.0/appcompat-v7-23.1.0-sources.jar"/>
+	<classpathentry path="C:/Users/Roughy/androidWorkspace/SkypeAutoblock/module/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/classes.jar" kind="lib" sourcepath="ANDROID_HOME/extras/android/m2repository/com/android/support/support-v4/23.1.0/support-v4-23.1.0-sources.jar"/>
+	<classpathentry path="C:/Users/Roughy/androidWorkspace/SkypeAutoblock/module/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/libs/internal_impl-23.1.0.jar" kind="lib" sourcepath="ANDROID_HOME/extras/android/m2repository/com/android/support/support-v4/23.1.0/support-v4-23.1.0-sources.jar"/>
+	<classpathentry path="ANDROID_HOME/platforms/android-23/android.jar" kind="var" sourcepath="ANDROID_HOME/sources/android-23"/>
+</classpath>

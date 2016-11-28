@@ -85,7 +85,7 @@ public class LoadPackageHook implements IXposedHookLoadPackage
 	                	
 	                	//XposedBridge.log("Blocked a contact request!");
 
-	                	Log.i("SkypeAutoBlock", "Blocked a contact request.");
+	                	Log.i("SkypeAutoblock", "Blocked a contact request.");
 	                	
 	                	param.setResult(null);
 	                }
@@ -113,7 +113,7 @@ public class LoadPackageHook implements IXposedHookLoadPackage
 	        }
 	        catch (Exception ex)
 	        {
-	        	XposedBridge.log("Something went wrong hooking SkypeAutoBlock. Check logcat for stacktrace.");
+	        	XposedBridge.log("Something went wrong hooking SkypeAutoblock. Check logcat for stacktrace.");
 	        	ex.printStackTrace();
 	        }
 	        

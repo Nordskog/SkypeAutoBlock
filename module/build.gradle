@@ -1,0 +1,118 @@
+
+apply plugin: 'android'
+apply plugin: 'eclipse'
+apply from: '../signing.gradle'
+
+
+
+android 
+{
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig 
+    {
+    	applicationId 'com.nordskog.skypeautoblock'
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+	}
+
+    buildTypes 
+    {
+        release
+        {
+            //runProguard true
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+
+        debug 
+        {
+            debuggable true
+        }
+    }
+}
+
+buildscript
+{
+	repositories
+	{
+		mavenCentral()
+	}
+	
+	dependencies
+	{
+		classpath 'com.android.tools.build:gradle:2.1.3'
+	}
+}
+
+repositories 
+{
+	jcenter()
+    mavenCentral()
+    
+}
+
+
+dependencies 
+{
+		provided 'de.robv.android.xposed:api:82'
+		provided 'de.robv.android.xposed:api:82:sources'
+		//compile 'com.android.support:appcompat-v7:23.1.0'
+    	compile 'com.android.support:support-v4:23.1.0'
+
+}
+
+//From stackoverflow
+apply plugin: 'eclipse'
+eclipse {
+    pathVariables 'GRADLE_HOME': gradle.gradleUserHomeDir, "ANDROID_HOME": android.sdkDirectory 
+    classpath {
+        plusConfigurations += [ configurations.compile, configurations.testCompile ]
+
+        file {
+            beforeMerged { classpath ->
+                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("src/main/java", "bin"))
+                // Hardcoded to use debug configuration
+                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/r/debug", "bin"))
+                classpath.entries.add(new org.gradle.plugins.ide.eclipse.model.SourceFolder("build/generated/source/buildConfig/debug", "bin"))
+            }
+
+            whenMerged { classpath ->
+                def aars = []
+                classpath.entries.each { dep ->
+                    if (dep.path.toString().endsWith(".aar")) {
+                        def explodedDir = new File(projectDir, "build/intermediates/exploded-aar/" + dep.moduleVersion.group + "/" + dep.moduleVersion.name + "/" + dep.moduleVersion.version + "/jars/")
+                        if (explodedDir.exists()) {
+                            explodedDir.eachFileRecurse(groovy.io.FileType.FILES) {
+                                if (it.getName().endsWith("jar")) {
+                                    def aarJar = new org.gradle.plugins.ide.eclipse.model.Library(fileReferenceFactory.fromFile(it))
+                                    aarJar.sourcePath = dep.sourcePath
+                                    aars.add(aarJar)
+                                }
+                            }
+                        } else {
+                            println "Warning: Missing " + explodedDir
+                        }
+                    }
+                }
+                classpath.entries.removeAll { it.path.endsWith(".aar") }
+                classpath.entries.addAll(aars)
+
+                def androidJar = new org.gradle.plugins.ide.eclipse.model.Variable(
+                    fileReferenceFactory.fromPath("ANDROID_HOME/platforms/" + android.compileSdkVersion + "/android.jar"))
+                androidJar.sourcePath = fileReferenceFactory.fromPath("ANDROID_HOME/sources/" + android.compileSdkVersion) 
+                classpath.entries.add(androidJar)
+            }
+        }
+    }
+}
+
+// We need build/generated/source/{r,buildConfig}/debug to be present before generating classpath
+//  This also ensures that AARs are exploded 
+eclipseClasspath.dependsOn "generateDebugSources"
+
